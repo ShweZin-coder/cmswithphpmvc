@@ -1,7 +1,11 @@
 <?php
 
-require_once('src/controller.php');
+define('ROOT_PATH',dirname(__FILE__).DIRECTORY_SEPARATOR);
+define('VIEW_PATH',ROOT_PATH . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
 
+session_start();
+require_once ROOT_PATH .'src/controller.php';
+require_once ROOT_PATH .'src/template.php';
 
 // if / else logic 
 
@@ -12,15 +16,17 @@ $action = $_GET['action'] ?? $_POST['action'] ?? 'default';
 
 if ($section=='about-us') {
     
-    include 'controller/aboutUsPage.php';
+    include ROOT_PATH .'controller/aboutUsPage.php';
     $aboutUsController = new AboutUsController();
     $aboutUsController->runAction($action);
 } else if ($section == 'contact'){
-    include 'controller/contactPage.php';
+    include ROOT_PATH .'controller/contactPage.php';
     $contactController = new ContactController();
     $contactController->runAction($action);
 } else {
-    include 'controller/homePage.php';
+    include ROOT_PATH . 'controller/homePage.php';
+    $homePageController = new HomePageController();
+    $homePageController->runAction($action);
 }
 
 
