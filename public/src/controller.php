@@ -1,5 +1,6 @@
 <?php 
     class Controller{
+        protected $entityId;
         function runAction($actionName)
         {
             if(method_exists($this,'runBeforeAction'))
@@ -23,6 +24,10 @@
                 $template = new Template('layout');
                 $template->view('static-page',$variables);
             }
+        }
+        public function setEntityId($entityId)
+        {
+            $this->entityId = $entityId;
         }
     }
     
