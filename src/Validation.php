@@ -1,40 +1,27 @@
 <?php 
 class Validation{
-    public function validatePassword($password)
+    private $rules;
+    private $errorMessages = [];
+    public function addRule(ValidationRuleInterface $rule)
     {
-        // minimum number of characters
-        if(strlen($password) < 3)
+        $this->rules[] = $rule;
+        return $this;
+    }
+    public function validate($value)
+    {
+        foreach($this->rules as $rule)
         {
-            return false;
-        }
-        // maximum number of characters
-        if(strlen($password) > 20)
-        {
-            return false;
-        }
-        // one special character
-        if(!preg_match("/[a-zA-Z0-9]+/",$password))
-        {
-            return false;
+            $ruleValidation = $rule->validateRule($value);
+            if(!$ruleValidation)
+            {
+                $this->errorMessages[] = $rule->getErrorMessage();
+                return false;
+            }
         }
         return true;
     }
-    public function validateUsername($username)
+    public function getAllErrorMessages()
     {
-        // minimum number of characters
-        if(strlen($username) < 3)
-        {
-            return false;
-        }
-        // maximum number of characters
-        if(strlen($username) > 20)
-        {
-            return false;
-        }
-        if (!filter_var($username, FILTER_VALIDATE_EMAIL))
-        {
-            return false;
-        }
-        return true;
+        return $this->errorMessages;
     }
 }

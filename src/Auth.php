@@ -16,6 +16,7 @@ class Auth{
                 return true;
             }
         }
+        return false;
     }
     function changeUserPassword($userObj, $newPassword)
     {

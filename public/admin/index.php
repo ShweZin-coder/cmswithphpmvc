@@ -6,9 +6,14 @@ define('MODULE_PATH',ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEP
 define('ENCRYPTION_SALT','2394f448393r438ruf8r43398r432iru');
 
 session_start();
+require_once ROOT_PATH .'src/interfaces/ValidationRuleInterface.php';
 require_once ROOT_PATH .'src/DatabaseConnection.php';
 require_once ROOT_PATH .'src/Entity.php';
 require_once ROOT_PATH .'src/Auth.php';
+require_once ROOT_PATH .'src/validationRules/ValidateEmail.php';
+require_once ROOT_PATH .'src/validationRules/ValidateMaximum.php';
+require_once ROOT_PATH .'src/validationRules/ValidateMinimum.php';
+require_once ROOT_PATH .'src/validationRules/ValidateSpecialCharacters.php';
 require_once ROOT_PATH .'src/Validation.php';
 require_once ROOT_PATH .'src/Controller.php';
 require_once MODULE_PATH .'user/models/User.php';
