@@ -13,7 +13,7 @@ class ContactController extends Controller{
             $pageObj->findBy('id',4);
             $variables['pageObj']= $pageObj;
             $template = new Template('layout');
-            $template->view('static-page',$variables);
+            $template->view('page/views/static-page',$variables);
             return false;
         }
         return true;
@@ -27,7 +27,7 @@ class ContactController extends Controller{
         $pageObj->findBy('id',3);
         $variables['pageObj']= $pageObj;
         $template = new Template('layout');
-        $template->view('contact/contact-us',$variables);
+        $template->view('contact/views/contact-us',$variables);
     }
     function submitContactAction()
     {
@@ -40,7 +40,7 @@ class ContactController extends Controller{
         $pageObj->findBy('id',4);
         $variables['pageObj']= $pageObj;
         $template = new Template('layout');
-        $template->view('static-page',$variables);
+        $template->view('page/views/static-page',$variables);
         return false;
     }
 }

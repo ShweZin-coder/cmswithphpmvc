@@ -1,9 +1,18 @@
 <?php 
-class Entity{
+abstract class Entity{
 
     protected $dbc;
     protected $tableName;
     protected $fields;
+
+    abstract protected function initFields();
+    protected function __construct($dbc,$tableName)
+    {
+       $this->dbc = $dbc;
+       $this->tableName = $tableName;
+       $this->initFields();
+    }
+
     public function findBy($fieldName,$fieldValue)
     {
         
@@ -15,6 +24,7 @@ class Entity{
     }
     public function setValues($values)
     {
+        
         foreach ($this->fields as $fieldName) {
             $this->$fieldName = $values[$fieldName];
         }

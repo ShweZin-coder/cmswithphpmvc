@@ -9,9 +9,11 @@ class Router extends Entity{
     public $pretty_url;
     public function __construct($dbc)
     {
-        $this->dbc = $dbc;
-        $this->tableName = "routes";
-        $this->fields = [
+        parent::__construct($dbc,'routes');
+    }
+    protected function initFields()
+    {
+      $this->fields = [
             'id',
             'module',
             'action',
