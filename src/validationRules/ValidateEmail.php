@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+namespace src\validationRules;
+use src\interfaces\ValidationRuleInterface;
 class ValidateEmail implements ValidationRuleInterface{
     function validateRule($value)
     {

@@ -6,41 +6,38 @@ class ContactController extends Controller{
         if($_SESSION['has_submitted_the_form'] ?? 0 == 1)
         {
             // view already submitted page
-            $dbh = DatabaseConnection::getInstance();
+            $dbh = src\DatabaseConnection::getInstance();
             $dbc = $dbh->getConnection();
 
-            $pageObj = new Page($dbc);
+            $pageObj = new model\Page($dbc);
             $pageObj->findBy('id',4);
             $variables['pageObj']= $pageObj;
-            $template = new Template('layout');
-            $template->view('page/views/static-page',$variables);
+            $this->template->view('page/views/static-page',$variables);
             return false;
         }
         return true;
     }
     function defaultAction()
     {
-        $dbh = DatabaseConnection::getInstance();
+        $dbh = src\DatabaseConnection::getInstance();
         $dbc = $dbh->getConnection();
 
-        $pageObj = new Page($dbc);
+        $pageObj = new model\Page($dbc);
         $pageObj->findBy('id',3);
         $variables['pageObj']= $pageObj;
-        $template = new Template('layout');
-        $template->view('contact/views/contact-us',$variables);
+        $this->template->view('contact/views/contact-us',$variables);
     }
     function submitContactAction()
     {
         $_SESSION['has_submitted_the_form'] = 1;
         // view thank-you page
-        $dbh = DatabaseConnection::getInstance();
+        $dbh = src\DatabaseConnection::getInstance();
         $dbc = $dbh->getConnection();
 
-        $pageObj = new Page($dbc);
+        $pageObj = new model\Page($dbc);
         $pageObj->findBy('id',4);
         $variables['pageObj']= $pageObj;
-        $template = new Template('layout');
-        $template->view('page/views/static-page',$variables);
+        $this->template->view('page/views/static-page',$variables);
         return false;
     }
 }

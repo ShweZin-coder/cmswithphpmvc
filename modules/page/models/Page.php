@@ -1,6 +1,9 @@
 <?php 
 
-class Page extends Entity{
+namespace modules\page\models;
+use src\Entity;
+
+class Page extends Entity{  
 
     public $id;
     public $title;
@@ -13,7 +16,6 @@ class Page extends Entity{
     protected function initFields()
     {
         $this->fields = [
-            'id',
             'title',
             'content'
         ];

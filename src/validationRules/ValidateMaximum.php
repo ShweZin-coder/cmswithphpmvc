@@ -1,4 +1,7 @@
 <?php 
+
+namespace src\validationRules;
+use src\interfaces\ValidationRuleInterface;
 class ValidateMaximum implements ValidationRuleInterface{
     private $maximum;
     public function __construct($maximum)

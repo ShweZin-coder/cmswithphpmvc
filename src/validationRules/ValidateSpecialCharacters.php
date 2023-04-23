@@ -1,4 +1,7 @@
 <?php 
+
+namespace src\validationRules;
+use src\interfaces\ValidationRuleInterface;
 class ValidateSpecialCharacters implements ValidationRuleInterface{
     private $rule;
     public function __construct($rule = "/[a-zA-Z0-9]+/")

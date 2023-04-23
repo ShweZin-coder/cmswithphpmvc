@@ -1,6 +1,12 @@
 <?php
 
-class DashboardController extends Controller{
+use src\Validation;
+use src\validationRules\ValidateEmail;
+use src\validationRules\ValidateMaximum;
+use src\validationRules\ValidateMinimum;
+use src\validationRules\ValidateSpecialCharacters;
+use src\Auth;
+class DashboardController extends src\Controller{
 
     function runBeforeAction()
     {
@@ -12,7 +18,7 @@ class DashboardController extends Controller{
         $action = $_GET['action'] ?? $_POST['action'] ?? 'default';
         if($action != 'login')
         {
-            header('Location: index.php?module=dashboard&action=login');
+            header('Location: index.php?module=dashboard');
         }
         else
         {
@@ -23,7 +29,9 @@ class DashboardController extends Controller{
 
     function defaultAction()
     {
-       echo "Welcome to our dashboard";
+        $variables = [];
+        header('Location: index.php?module=page');
+        exit();
     }
     function loginAction()
     {
@@ -31,17 +39,6 @@ class DashboardController extends Controller{
         {
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
-
-            // if(!$validation->validatePassword($password))
-            // {
-            //     $_SESSION['validationRules']['error'] = "Password must be between 3 and 20 characters".
-            //                                             " and must contain one special character.";
-            // }
-            // if(!$validation->validateUsername($username))
-            // {
-            //     $_SESSION['validationRules']['error'] = "User name must be between 3 and 20 characters".
-            //                                             " and must be a validated email.";
-            // }
             $validation = new Validation();
             if(!$validation
                            ->addRule(new ValidateMinimum(3))
@@ -72,7 +69,7 @@ class DashboardController extends Controller{
                 }
                 else
                 {
-                    $_SESSION['validationRules']['errors'] = "Username and password is incorrect.";
+                    $_SESSION['validationRules']['errors'][] = "Username and password is incorrect.";
                 }
             }
             

@@ -1,4 +1,6 @@
 <?php
+namespace src;
+use src\Entity;
 
 class Router extends Entity{
 

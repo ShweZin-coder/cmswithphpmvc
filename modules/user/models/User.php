@@ -1,5 +1,7 @@
 <?php
 
+namespace modules\user\models;
+use src\Entity;
 class User extends Entity{
 
     public $id;

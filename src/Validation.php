@@ -1,4 +1,7 @@
 <?php 
+
+namespace src;
+use src\interfaces\ValidationRuleInterface;
 class Validation{
     private $rules;
     private $errorMessages = [];

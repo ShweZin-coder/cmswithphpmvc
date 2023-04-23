@@ -4,12 +4,27 @@ define('ROOT_PATH',dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATO
 define('VIEW_PATH',ROOT_PATH . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
 define('MODULE_PATH',ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR);
 session_start();
-require_once ROOT_PATH .'src/Controller.php';
-require_once ROOT_PATH .'src/Template.php';
-require_once ROOT_PATH .'src/DatabaseConnection.php';
-require_once ROOT_PATH .'src/Entity.php';
-require_once ROOT_PATH .'src/Router.php';
-require_once MODULE_PATH .'page/models/Page.php';
+
+
+use src\DatabaseConnection;
+use src\Template;
+use src\Router;
+use modules\page\models\Page;
+use modules\page\controllers\PageController;
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+spl_autoload_register(function ($class_name) {
+
+    $file = ROOT_PATH . str_replace('\\', '/', $class_name) . '.php';
+
+    if(file_exists($file))
+    {
+        require $file;
+    }
+
+});
 
 // Database Connection
 // connect to database
@@ -29,8 +44,9 @@ $moduleName = ucfirst($router->module).'Controller';
 $controllerFile = MODULE_PATH .$router->module .'/controllers/'.$moduleName.'.php';
 if(file_exists($controllerFile))
 {
-    include $controllerFile;
-    $controller = new $moduleName();
+    //include $controllerFile;
+    $controller = new PageController();
+    $controller->template = new Template('layout/default');
     $controller->setEntityId($router->entity_id);
     $controller->runAction($action);
 }
